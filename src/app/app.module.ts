@@ -4,6 +4,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { ProductsPageModule } from './pages/products/products-page.module';
+import { GlobalComponentsModule } from './components/global-components.module';
+import { AppEnvironmentModule } from '../environments/environment.injector';
 
 @NgModule({
   declarations: [
@@ -11,7 +13,9 @@ import { ProductsPageModule } from './pages/products/products-page.module';
   ],
   imports: [
     BrowserModule,
+    GlobalComponentsModule,
     NgbModule,
+    AppEnvironmentModule,
     ProductsPageModule
   ],
   providers: [],

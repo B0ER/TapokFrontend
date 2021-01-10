@@ -1,5 +1,11 @@
 <ul class="main-goods__grid">
-  <li class="main-goods__cell" data-goods-id="252742451">
-    <app-product-item></app-product-item>
+  <li class="main-goods__cell" *ngFor="let product of products">
+    <app-product-item 
+    (id)="product.id" 
+    (imageUrl)="product.imageUrl"
+    (title)="product.title"
+    (count)="product.count"
+    (price)="product.price"
+    ></app-product-item>
   </li>
 </ul>
