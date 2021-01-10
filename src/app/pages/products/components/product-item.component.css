@@ -1,0 +1,90 @@
+.tile .wish-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+}
+
+.wish-button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  margin-bottom: 4px;
+  background-color: #fff;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+@media (hover: hover) {
+  .wish-button:hover {
+    background-color: #f4faf6;
+  }
+}
+
+.wish-button svg, .wish-button_state_active, .wish-button_state_active svg {
+  -webkit-transition: .2s;
+  -o-transition: .2s;
+  transition: all .2s ease;
+}
+
+.wish-button svg {
+  vertical-align: middle;
+  fill: #fcc10a;
+}
+
+svg {
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
+  list-style: none;
+  -webkit-box-direction: normal;
+  cursor: pointer;
+  stroke: #fcc10a;
+  stroke-width: 2px;
+  fill: #fff;
+}
+
+.tile__picture img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  /* -webkit-transform: translate(-50%,-50%); */
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  max-height: 140px;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.tile__picture {
+  position: relative;
+  display: block;
+  height: 170px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+a {
+  text-decoration: none;
+  color: #3e77aa;
+  cursor: pointer;
+}
+
+.tile {
+  position: relative;
+  height: 100%;
+  padding: 16px;
+}
