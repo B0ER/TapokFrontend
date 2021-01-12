@@ -2,7 +2,7 @@ import { NgModule, InjectionToken } from '@angular/core';
 import { environment } from "./environment";
 import { EnvironmentType } from './environment.type';
 
-export let APP_ENV = new InjectionToken<EnvironmentType>('app.env');
+export const APP_ENV = new InjectionToken<EnvironmentType>('app.env');
 
 
 @NgModule({

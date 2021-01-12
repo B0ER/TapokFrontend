@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { ProductsPageModule } from './pages/products/products-page.module';
 import { GlobalComponentsModule } from './components/global-components.module';
 import { AppEnvironmentModule } from '../environments/environment.injector';
+import { CartPageModule } from './pages/cart/cart-page.module';
+
 
 @NgModule({
   declarations: [
@@ -16,7 +18,8 @@ import { AppEnvironmentModule } from '../environments/environment.injector';
     GlobalComponentsModule,
     NgbModule,
     AppEnvironmentModule,
-    ProductsPageModule
+    ProductsPageModule,
+    CartPageModule
   ],
   providers: [],
   bootstrap: [AppComponent]
