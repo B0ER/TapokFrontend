@@ -17,7 +17,7 @@ export class CartPageService {
   ) { }
 
   getCartProducts(): Observable<ProductType[]> {
-    return this.httpClient.get<ProductType[]>(`${this.environment.apiUrl}/cart/`);
+    return this.httpClient.get<ProductType[]>(`${this.environment.apiUrl}/cart`);
   }
 
   createOrderOnClient(products: ProductType[]): ICreateOrderRequest {

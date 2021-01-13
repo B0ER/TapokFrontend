@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { IPayPalConfig, NgxPaypalComponent } from 'ngx-paypal';
+import { IPayPalConfig, NgxPaypalComponent, PayPalScriptService } from 'ngx-paypal';
 
 import { CartPageService } from './cart-page.service';
 import { ProductType } from './types/product.type';
@@ -10,19 +10,13 @@ import { EnvironmentType } from "../../../environments/environment.type";
 @Component({
   selector: 'app-cart-page',
   templateUrl: './cart-page.component.html',
-  styleUrls: ['./cart-page.component.css'],
+  styleUrls: ['cart-page.component.css'],
 })
 
 export class CartPageComponent implements OnInit {
-  @ViewChild("paypalref") paypalComponent: NgxPaypalComponent;
-
   public payPalConfig: IPayPalConfig;
 
-  public products: ProductType[] = [
-    { id: "ID!1", title: "TITLE!", count: 1, storeCount: 2, imageUrl: "https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-5.jpg", price: 100 },
-    { id: "ID!2", title: "TITLE!", count: 1, storeCount: 2, imageUrl: "https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-5.jpg", price: 100 },
-    { id: "ID!3", title: "TITLE!", count: 1, storeCount: 2, imageUrl: "https://s3.eu-central-1.amazonaws.com/bootstrapbaymisc/blog/24_days_bootstrap/sheep-5.jpg", price: 100 }
-  ];
+  public products: ProductType[] = [];
 
   constructor(
     @Inject(APP_ENV) private readonly environment: EnvironmentType,
@@ -30,7 +24,7 @@ export class CartPageComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.cartPageService.getCartProducts().subscribe(products => this.products = products);
+    this.cartPageService.getCartProducts().subscribe(products => this.products = products);
     this.initPaypalConfig();
   }
 
@@ -94,7 +88,7 @@ export class CartPageComponent implements OnInit {
   onApprove(data, actions) {
     console.log('Transaction Approved:', data);
 
-    // Captures the trasnaction
+    // Captures the transaction
     return actions.order.capture().then(details => {
 
       console.log('Transaction completed by', details);

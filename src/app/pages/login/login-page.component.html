@@ -1,0 +1,13 @@
+<div class="container mt-3 mx-auto">
+  <div class="col-4 mx-auto mb-1">
+    <label for="emailInput">Email</label>
+    <input type="text" [(ngModel)]="email" class="form-control mt-1" id="emailInput" placeholder="Enter email" />
+  </div>
+  <div class="col-4 mx-auto">
+    <label for="passwordInput">Password</label>
+    <input type="password" [(ngModel)]="password" class="form-control mt-1" id="passwordInput" placeholder="Enter password" />
+  </div>
+  <div class="col-4 mt-2 mx-auto form-group">
+    <button class="btn btn-primary btn-sm btn-block" (click)="login($event)">Login</button>
+  </div>
+</div>

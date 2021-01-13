@@ -6,6 +6,7 @@ import { ProductItemComponent } from './components/product-item.component';
 import { ProductsPageComponent } from './products-page.component';
 import { ProductsService } from './products.service';
 
+
 @NgModule({
   imports: [CommonModule, HttpClientModule],
   exports: [ProductsPageComponent],
