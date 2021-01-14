@@ -1,5 +1,7 @@
 
 import { Component, Input, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { ProductItemService } from './product-item.service';
 
 @Component({
   selector: 'app-product-item',
@@ -10,16 +12,26 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ProductItemComponent implements OnInit {
 
   @Input() id: string;
-  @Input() imageUrl: string = "https://i8.rozetka.ua/goods/20153303/xiaomi_mi_10t_6_128gb_cosmic_black_images_20153303041.jpg";
-  @Input() title: string = "Мобильный телефон Xiaomi Mi 10T 6/128GB Cosmic Black";
+  @Input() imageUrl: string = "";
+  @Input() title: string = "";
   @Input() count: number = 0;
-  @Input() price: number = 12999;
+  @Input() price: number = 0;
 
-  constructor() { }
+  isLogged: boolean = false;
+
+  constructor(
+    private readonly productItemService: ProductItemService,
+    private readonly toastr: ToastrService
+  ) {
+    this.isLogged = localStorage.getItem('isLogged') === "true";
+  }
 
   ngOnInit() { }
 
   addToCart() {
-    
+    console.log("add to cart")
+    this.productItemService.addToCart(this.id).subscribe(() => {
+      this.toastr.info('Product was added to cart!');
+    });
   }
 }

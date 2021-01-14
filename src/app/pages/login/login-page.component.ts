@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { LoginPageService } from './login-page.service';
 
 
@@ -11,11 +13,17 @@ export class LoginPageComponent implements OnInit {
   public email: string = '';
   public password: string = '';
 
-  constructor(private readonly loginPageService: LoginPageService) { }
+  constructor(
+    private readonly loginPageService: LoginPageService,
+    private readonly authService: AuthService,
+    private readonly router: Router
+    ) { }
 
   ngOnInit() { }
 
   login($event: Event) {
-    this.loginPageService.login(this.email, this.password);
+    this.authService.login(this.email, this.password).subscribe(() => {
+      this.router.navigate(['products']);
+    });
   }
 }

@@ -1,7 +1,7 @@
 <!-- As a heading -->
 <nav class="navbar navbar-dark bg-dark">
-  <span class="navbar-brand mb-0 h1">Tapok</span>
-  <div>
+  <span class="navbar-brand mb-0 h1" [routerLink]="'/'">Tapok</span>
+  <div *ngIf="isLogged" routerLink="/cart">
     <svg _ngcontent-c11="" aria-hidden="true" height="40" width="40">
       <use _ngcontent-c11="" xlink:href="#icon-header-basket" xmlns:xlink="http://www.w3.org/1999/xlink">
         <svg viewBox="0 0 40 40" id="icon-header-basket">

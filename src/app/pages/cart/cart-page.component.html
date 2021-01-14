@@ -1,42 +1,46 @@
-<div class="container">
+<div class="d-flex justify-content-center" *ngIf="!products || !products.length">
+  <h4>Cart is empty!</h4>
+</div>
+
+<div class="container" *ngIf="products && products.length">
   <div class="row">
-    <div class="col-12">
-		<table class="table table-image">
-		  <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Image</th>
-          <th scope="col">Title</th>
-          <th scope="col">Price</th>
-          <th scope="col">Store Count</th>
-          <th scope="col">Count</th>
-          <th scope="col">Total price</th>
-          <th scope="col">Actions</th>
-        </tr>
-		  </thead>
-		  <tbody>
-		    <tr *ngFor="let product of products; index as index;">
-		      <th scope="row">{{index + 1}}</th>
-		      <td class="image-cell">
-			      <img [src]="product.imageUrl" class="img-fluid img-thumbnail" [alt]="product.title">
-		      </td>
-		      <td>{{product.title}}</td>
-		      <td>{{product.price}}</td>
-          <td>{{product.storeCount}}</td>
-		      <td>
-            <input class="col-sm-2 form-control" type="number" min="1" [(ngModel)]="product.count" (change)="validateCount($event, product)">
-          </td>
-		      <td>{{product.price * product.count}}</td>
-		      <td>Delete</td>
-		    </tr>
-		  </tbody>
-		</table>   
+    <div class="col">
+      <table class="table table-image">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Image</th>
+            <th scope="col">Title</th>
+            <th scope="col">Price</th>
+            <th scope="col">Store Count</th>
+            <th scope="col">Count</th>
+            <th scope="col">Total price</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products; index as index;">
+            <th scope="row">{{index + 1}}</th>
+            <td class="image-cell">
+              <img [src]="product.imageUrl" class="img-fluid img-thumbnail rounded col-6 d-block" [alt]="product.title">
+            </td>
+            <td>{{product.title}}</td>
+            <td>{{product.price}}</td>
+            <td>{{product.storeCount}}</td>
+            <td>
+              <input class="col-sm-3 form-control" type="number" min="1" [(ngModel)]="product.count"
+                (change)="validateCount($event, product)">
+            </td>
+            <td>{{product.price * product.count}}</td>
+            <td>
+              <button type="button" class="btn btn-danger" (click)="deleteOnClick($event, product)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-  <div class="row">
-    <button type="button" class="btn btn-primary col mt-2">Buy</button>
-  </div>
-  <div class="row">
+  <div class="w-50 mx-auto mt-4" *ngIf="products && products.length">
     <ngx-paypal [config]="payPalConfig"></ngx-paypal>
   </div>
 </div>

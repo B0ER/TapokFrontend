@@ -1,10 +1,11 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { IPayPalConfig, NgxPaypalComponent, PayPalScriptService } from 'ngx-paypal';
+import { IClientAuthorizeCallbackData, IPayPalConfig, NgxPaypalComponent, PayPalScriptService } from 'ngx-paypal';
 
 import { CartPageService } from './cart-page.service';
 import { ProductType } from './types/product.type';
 import { APP_ENV } from "../../../environments/environment.injector";
 import { EnvironmentType } from "../../../environments/environment.type";
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -20,7 +21,8 @@ export class CartPageComponent implements OnInit {
 
   constructor(
     @Inject(APP_ENV) private readonly environment: EnvironmentType,
-    private readonly cartPageService: CartPageService
+    private readonly cartPageService: CartPageService,
+    private readonly toastr: ToastrService
   ) { }
 
   ngOnInit() {
@@ -49,20 +51,23 @@ export class CartPageComponent implements OnInit {
           console.log('onApprove - you can get full order details inside onApprove: ', details);
         });
       },
-      onClientAuthorization: (data) => {
+      onClientAuthorization: (data: IClientAuthorizeCallbackData) => {
         console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
-        // this.showSuccess = true;
+
+        this.cartPageService.saveTransaction(data.id).subscribe(() => {
+          this.toastr.info('Your order has been accepted!');
+          this.products = [];
+        });
       },
       onCancel: (data, actions) => {
         console.log('OnCancel', data, actions);
+        this.toastr.error('Retry please!');
       },
       onError: err => {
         console.log('OnError', err);
+        this.toastr.error('Retry please!');
       },
       onClick: (data, actions) => {
-        console.log('onClick data:', data);
-        data = ["some"];
-        console.log('onClick data:', data);
         console.log('onClick', data, actions);
       },
     };
@@ -78,31 +83,15 @@ export class CartPageComponent implements OnInit {
       return;
     }
 
-    //TODO: save count in cart request
-
-    console.log($event);
-    console.log(product.id);
-    console.log(product.count);
+    this.cartPageService.saveProductCount(product).subscribe();
   }
 
-  onApprove(data, actions) {
-    console.log('Transaction Approved:', data);
-
-    // Captures the transaction
-    return actions.order.capture().then(details => {
-
-      console.log('Transaction completed by', details);
-
-      // Call your server to handle the transaction
-      return Promise.reject('Transaction aborted by the server');
+  deleteOnClick($event: Event, product: ProductType) {
+    this.cartPageService.deleteFromCart(product).subscribe(() => {
+      const productIndex = this.products.indexOf(product);
+      if (productIndex > -1) {
+        this.products.splice(productIndex, 1);
+      }
     });
-  }
-
-  onCancel($event) {
-    console.log('Canceled');
-  }
-
-  onError($event) {
-    console.log('Error catch from paypal widget!');
   }
 }

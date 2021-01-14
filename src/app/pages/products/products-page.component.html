@@ -1,11 +1,12 @@
-<ul class="main-goods__grid">
-  <li class="main-goods__cell" *ngFor="let product of products">
-    <app-product-item 
-    (id)="product.id" 
-    (imageUrl)="product.imageUrl"
-    (title)="product.title"
-    (count)="product.count"
-    (price)="product.price"
-    ></app-product-item>
-  </li>
-</ul>
+<div class="container">
+  <div class="row justify-content-end my-2" *ngIf="!isLogged">
+    <button type="button" class="btn btn-secondary float-right col-2 m-1" [routerLink]="'/login'">Login</button>
+    <button type="button" class="btn btn-secondary float-right col-2 m-1" [routerLink]="'/registration'">Registration</button>
+  </div>
+  <ul class="main-goods__grid row mt-4">
+    <li class="main-goods__cell" *ngFor="let product of products">
+      <app-product-item [id]="product.id" [imageUrl]="product.imageUrl" [title]="product.title" [count]="product.count"
+        [price]="product.price"></app-product-item>
+    </li>
+  </ul>
+</div>

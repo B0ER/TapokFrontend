@@ -12,8 +12,6 @@ export class RegistrationPageService {
   ) { }
 
   registration(email: string, password: string) {
-    return this.httpClient.post(`${this.environment.apiUrl}/auth/register`, { username: email, password: password }).subscribe(response => {
-      console.log('RegistrationPageService: register response', response);
-    });
+    return this.httpClient.post(`${this.environment.apiUrl}/auth/register`, { username: email, password: password });
   }
 }

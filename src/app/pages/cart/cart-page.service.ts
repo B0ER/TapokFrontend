@@ -59,7 +59,18 @@ export class CartPageService {
     paypalOrder.purchase_units[0].amount.value = totalAmount.toFixed(0);
     paypalOrder.purchase_units[0].amount.breakdown.item_total.value = totalAmount.toFixed(0);
 
-    debugger;
     return paypalOrder;
+  }
+
+  saveProductCount(product: ProductType) {
+    return this.httpClient.post(`${this.environment.apiUrl}/cart/${product.id}/count`, { count: product.count });
+  }
+
+  deleteFromCart(product: ProductType) {
+    return this.httpClient.delete(`${this.environment.apiUrl}/cart/${product.id}`);
+  }
+
+  saveTransaction(orderId: string) {
+    return this.httpClient.post(`${this.environment.apiUrl}/cart/buy`, { orderId });
   }
 }
